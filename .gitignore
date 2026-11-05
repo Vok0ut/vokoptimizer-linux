@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.log
+src/app.bundle.js
+node_modules/
+dist/
+.claude/
+.impeccable/
+*.log
+.olog.txt
+.elog.txt

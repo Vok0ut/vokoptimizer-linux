@@ -1,0 +1,85 @@
+{
+  "name": "vokoptimizer",
+  "version": "4.2.1",
+  "description": "Vokoptimizer - Real System Optimizer for Windows",
+  "main": "main.js",
+  "author": "Vokoptimizer",
+  "license": "MIT",
+  "scripts": {
+    "build:renderer": "node esbuild.config.js",
+    "dev:renderer": "node esbuild.config.js --watch",
+    "start": "node esbuild.config.js && electron .",
+    "build": "node esbuild.config.js && electron-builder --win",
+    "build-portable": "node esbuild.config.js && electron-builder --win portable",
+    "build-installer": "node esbuild.config.js && electron-builder --win nsis",
+    "release": "node esbuild.config.js && electron-builder --win nsis --publish always"
+  },
+  "devDependencies": {
+    "electron": "^28.3.3",
+    "electron-builder": "^24.13.3",
+    "esbuild": "^0.24.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "build": {
+    "appId": "com.vokoptimizer.app",
+    "productName": "Vokoptimizer",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "ollama-diagnostics.js",
+      "src/index.html",
+      "src/app.bundle.js",
+      "src/fonts/**/*",
+      "icon.ico"
+    ],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Vok0ut",
+        "repo": "Vokoptimizer"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "icon.ico",
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "portable": {
+      "artifactName": "Vokoptimizer-${version}-Portable.exe",
+      "requestExecutionLevel": "admin"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Vokoptimizer",
+      "installerIcon": "icon.ico",
+      "uninstallerIcon": "icon.ico",
+      "uninstallDisplayName": "Vokoptimizer",
+      "artifactName": "Vokoptimizer-${version}-Setup.exe"
+    }
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.9",
+    "systeminformation": "^5.31.7"
+  }
+}
